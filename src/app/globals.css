@@ -1,12 +1,25 @@
 @import "tailwindcss";
 
-:root {
+:root,:host{
 height: 100%;
+background: white;
+--color-primary: #4fbf8b;
+--color-primary-dull: #44ae7c;
 }
 
 
 
 body {
   height: 100vh;
-  font-family: var(--outfit-sans);
+  background: white;
+  font-family: var(--font-Outfit-sans);
+  
 }
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+.bg-primary-dull:hover {
+    background-color: var(--color-primary-dull);
+}
+
