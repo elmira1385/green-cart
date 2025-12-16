@@ -5,6 +5,8 @@ height: 100%;
 background: white;
 --color-primary: #4fbf8b;
 --color-primary-dull: #44ae7c;
+--color-grey-700: #364153 ;
+--color-text-primary:#4fbf8b;
 }
 
 
@@ -16,10 +18,19 @@ body {
   
 }
 
-.bg-primary {
+@layer components{
+  .bg-primary {
     background-color: var(--color-primary);
+}
+  .text-primary {
+    color: var(--color-text-primary);
 }
 .bg-primary-dull:hover {
     background-color: var(--color-primary-dull);
 }
+.text-grey700 {
+    color: var(--color-grey-700);
+}
+}
+
 
