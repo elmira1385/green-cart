@@ -1,37 +1,24 @@
 "use client"
-import { useQuery } from "@tanstack/react-query";
-import axios from "@/api/axios";
-export type TProducts={
-category:string,
-createdAt:string,
-description:string[],
-image:string[]
-inStock:boolean
-name:string,
-offerPrice:number,
-price:number,
-updatedAt:string,
-__v:number,
-_id:string,
-}
-export type TProductsResponse={
-    success:boolean,
-    products:TProducts[]
-}
+import { TProductsResponse } from '@/app/UI/BestSellers'
+import { useQuery } from '@tanstack/react-query'
+import axios from '@/api/axios'
+import React from 'react'
+import { useSearch } from '@/store/useSearch'
 
-const BestSellers = () => {
+const Products = () => {
+    const{search}=useSearch()
     const{data}=useQuery<TProductsResponse>({
-        queryKey:["products"],
+        queryKey:["allProducts"],
         queryFn:async()=>{
          const {data}=await axios.get("/api/product/list")
          return data
          }
     })
   return (
-    <div className="flex flex-col gap-6 px-32 pt-6">
-      <p className="text-3xl font-medium text-grey700">Best Sellers</p>
-      <ul className="flex justify-between items-center">
-        {data?.products.slice(0,5).map((item)=>(
+    <div className="flex flex-col gap-6 px-32 py-20">
+      <p className="text-2xl font-medium text-grey700">All PROU<span className='border-b-2 border-green-500'>UCTS</span></p>
+      <ul className="flex gap-10 items-center flex-wrap">
+        {data?.products.filter((product)=>(product.name.toLocaleLowerCase().includes(search))).map((item)=>(
         <li key={item._id} className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg">
           <div className="px-5 py-2">
             <img className="max-w-36 group-hover:scale-105" src={item.image[0]} alt="" />
@@ -71,7 +58,7 @@ const BestSellers = () => {
         
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default BestSellers;
+export default Products

@@ -5,6 +5,7 @@ import Categories from "./UI/Categories";
 import BestSellers from "./UI/BestSellers";
 import BannerFast from "./UI/BannerFast";
 import NeverMissADeal from "./UI/NeverMissADeal";
+import Footer from "./common-components/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <BestSellers/>
       <BannerFast/>
       <NeverMissADeal/>
+      <Footer/>
     </div>
   );
 }

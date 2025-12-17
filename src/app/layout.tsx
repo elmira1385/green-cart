@@ -7,7 +7,10 @@ const OutfitSans = Outfit({
   subsets: ["latin"],
 });
 export const metadata: Metadata = {
-  title: "green cart",
+  title: {
+    default:"Green card",
+    template: '%s | Green card',
+  }
   
 };
 export default function RootLayout({

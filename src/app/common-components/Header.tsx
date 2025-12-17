@@ -1,10 +1,12 @@
 "use client";
 import { useSearch } from "@/store/useSearch";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Header = () => {
   const { search, setSearch } = useSearch();
+ const router=useRouter()
   return (
     <div className="py-4 px-32 flex justify-between items-center border-b border-gray-300">
       <div>
@@ -19,7 +21,7 @@ const Header = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="">All Product</Link>
+            <Link href="./allProducts">All Product</Link>
           </li>
         </ul>
         <div className="flex gap-2 items-center border text-[14px] border-gray-300 text-gray-600 px-3 py-1 rounded-full">
@@ -27,6 +29,9 @@ const Header = () => {
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
+              if(search.length>0){
+                router.push("/allProducts")
+              }
             }}
             className="placeholder:text-gray-400  outline-0"
             placeholder="Search products"
