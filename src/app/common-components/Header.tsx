@@ -1,21 +1,20 @@
 "use client";
+import { useModule } from "@/store/useModule";
 import { useSearch } from "@/store/useSearch";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const Header = () => {
+  const router = useRouter();
   const { search, setSearch } = useSearch();
- const router=useRouter()
+  const { isOpen, setIsOpen } = useModule();
   return (
     <div className="py-4 px-32 flex justify-between items-center border-b border-gray-300">
       <div>
         <img className="w-37.5" src="./logo.svg" alt="" />
       </div>
       <div className="flex gap-8 items-center">
-        <button className="border border-gray-300 text-gray-600 px-3 py-1 rounded-full text-xs cursor-pointer opacity-80">
-          Seller Dashboard
-        </button>
         <ul className="flex gap-8 text-grey700">
           <li>
             <Link href="/">Home</Link>
@@ -29,8 +28,8 @@ const Header = () => {
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-              if(search.length>0){
-                router.push("/allProducts")
+              if (search.length > 0) {
+                router.push("/allProducts");
               }
             }}
             className="placeholder:text-gray-400  outline-0"
@@ -45,7 +44,13 @@ const Header = () => {
             0
           </button>
         </div>
-        <button className="cursor-pointer px-8 py-2 bg-primary transition bg-primary-dull text-white rounded-full">
+        <button
+          onClick={() => {
+            setIsOpen(true);
+            console.log(isOpen);
+          }}
+          className="cursor-pointer px-8 py-2 bg-primary transition bg-primary-dull text-white rounded-full"
+        >
           Login
         </button>
       </div>

@@ -5,9 +5,9 @@ import Footer from "../common-components/Footer";
 const layoutAllProducts = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-    <Header/>
+    
     {children}
-    <Footer/>
+    
     </div>
     )
 };
