@@ -5,6 +5,7 @@ import Provider from "./Provider";
 import Header from "./common-components/Header";
 import Footer from "./common-components/Footer";
 import LoginAndSignUp from "./common-components/LoginAndSignUp";
+import AuthFrist from "./common-components/AuthFrist";
 const OutfitSans = Outfit({
   variable: "--font-Outfit-sans",
   subsets: ["latin"],
@@ -22,7 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${OutfitSans.variable} antialiased`}>
         <Provider>
-          <LoginAndSignUp/>
+          <AuthFrist />
+          <LoginAndSignUp />
           <Header />
           {children}
           <Footer />

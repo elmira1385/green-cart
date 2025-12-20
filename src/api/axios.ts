@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://corsproxy.io/?https://greencart-server.greatstack.in",
+  baseURL: "https://greencart-server.greatstack.in",
 });
 
 instance.interceptors.request.use((config) => {

@@ -1,14 +1,17 @@
 "use client";
+import { useIsLogin } from "@/store/useIsLogin";
 import { useModule } from "@/store/useModule";
 import { useSearch } from "@/store/useSearch";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import IFIsLogin from "./IFIsLogin";
 
 const Header = () => {
   const router = useRouter();
   const { search, setSearch } = useSearch();
-  const { isOpen, setIsOpen } = useModule();
+  const {  setIsOpen } = useModule();
+  const{IsLogin}=useIsLogin()
   return (
     <div className="py-4 px-32 flex justify-between items-center border-b border-gray-300">
       <div>
@@ -44,15 +47,17 @@ const Header = () => {
             0
           </button>
         </div>
-        <button
+        
+        {
+          IsLogin?<IFIsLogin/>:<button
           onClick={() => {
             setIsOpen(true);
-            console.log(isOpen);
           }}
           className="cursor-pointer px-8 py-2 bg-primary transition bg-primary-dull text-white rounded-full"
         >
           Login
         </button>
+        }
       </div>
     </div>
   );

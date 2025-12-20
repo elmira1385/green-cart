@@ -5,6 +5,9 @@ import { useMutation } from '@tanstack/react-query'
 import axios from '@/api/axios'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useIsLogin } from '@/store/useIsLogin'
+import { parseSetCookie } from 'next/dist/compiled/@edge-runtime/cookies'
+import AuthFrist from './AuthFrist'
 interface userTypeRegister{
   name:string,
    email:string,
@@ -15,7 +18,7 @@ interface userTypeLogin{
   password:string
 }
 const LoginAndSignUp = () => {
- const{mutate:register}= useMutation({
+ const{mutate:register,isSuccess:registerSuccess}= useMutation({
   mutationFn:async(user:userTypeRegister)=>{
     const{data}=await axios.post("/api/user/register",{
       name:user.name,
@@ -25,7 +28,7 @@ const LoginAndSignUp = () => {
     return data
   }
   })
- const{mutate:login}= useMutation({
+ const{mutate:login,isSuccess:loginSuccess}= useMutation({
   mutationFn:async(user:userTypeLogin)=>{
     const{data}=await axios.post("/api/user/login",{
       email:user.email,
@@ -35,7 +38,7 @@ const LoginAndSignUp = () => {
   }
   })
 
-
+ 
   const{register:registerSignUP,handleSubmit:submitSignUP}=useForm({
     defaultValues:{
       name:"",
@@ -51,6 +54,7 @@ const LoginAndSignUp = () => {
   })
   const{isOpen,setIsOpen}=useModule()
   const [moveToSignUP,setMoveToSignUP]=useState(false)
+  const{setIsLogin}=useIsLogin()
   
   return (
     <>
@@ -83,8 +87,14 @@ const LoginAndSignUp = () => {
               }} className="text-primary cursor-pointer">click here</span></p>
             </div>
             <div className="flex justify-center ">
-              <button type="submit" className="bg-primary text-white px-32 rounded-md py-2 text-[14px] cursor-pointer ">Login</button>
+              <button onClick={()=>{
+                {if(loginSuccess){
+                setIsLogin(true)
+                setIsOpen(false)
+                }}
+              }} type="submit" className="bg-primary text-white px-32 rounded-md py-2 text-[14px] cursor-pointer ">Login</button>
             </div>
+            
           </form>
       </div>:<div onClick={(e)=>{
           e.stopPropagation()
@@ -120,7 +130,11 @@ const LoginAndSignUp = () => {
               }} className="text-primary cursor-pointer">click here</span></p>
             </div>
             <div className="flex justify-center ">
-              <button type="submit" className="bg-primary text-white px-24 rounded-md py-2 text-[14px] cursor-pointer ">Create Account</button>
+              <button onClick={()=>{
+                if(registerSuccess){
+                  setMoveToSignUP(false)
+                }
+              }} type="submit" className="bg-primary text-white px-24 rounded-md py-2 text-[14px] cursor-pointer ">Create Account</button>
             </div>
           </form>
       </div>} 
