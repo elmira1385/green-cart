@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from '@/api/axios'
 import React from 'react'
 import { useSearch } from '@/store/useSearch'
+import Link from 'next/link'
 
 const Products = () => {
     const{search}=useSearch()
@@ -19,7 +20,8 @@ const Products = () => {
       <p className="text-2xl font-medium text-grey700">All PROU<span className='border-b-2 border-green-500'>UCTS</span></p>
       <ul className="flex gap-10 items-center flex-wrap">
         {data?.products.filter((product)=>(product.name.toLocaleLowerCase().includes(search))).map((item)=>(
-        <li key={item._id} className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg">
+          <Link key={item._id} href={`/allProducts/${item.category}/${item._id}`}>
+        <li  className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg">
           <div className="px-5 py-2">
             <img className="max-w-36 group-hover:scale-105" src={item.image[0]} alt="" />
           </div>
@@ -54,6 +56,7 @@ const Products = () => {
             </div>
           </div>
         </li>
+        </Link>
         ))}
         
       </ul>

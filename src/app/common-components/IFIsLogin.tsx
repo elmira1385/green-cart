@@ -25,7 +25,6 @@ const IFIsLogin = () => {
         }} className="relative group size-10">
         <img  src="./ifislogin.png" alt="" />
         {isShow&&<ul className=" absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40">
-        <li className="p-1.5 pl-3 hover:bg-green-100 cursor-pointer">My Orders</li>
         <a
           href="https://greatstack.dev/go/grocery"
           className="p-2 pl-3 hover:bg-green-100 cursor-pointer block"

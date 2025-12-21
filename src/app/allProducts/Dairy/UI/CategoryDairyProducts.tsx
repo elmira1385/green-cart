@@ -3,10 +3,11 @@ import { TProductsResponse } from "@/app/UI/BestSellers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
 import React from "react";
+import Link from "next/link";
 
-const CategoryBreads = () => {
+const CategoryDairyProducts = () => {
       const { data } = useQuery<TProductsResponse>({
-    queryKey: ["Bakery"],
+    queryKey: ["Dairy"],
     queryFn: async () => {
       const { data } = await axios.get("/api/product/list");
       return data;
@@ -15,14 +16,15 @@ const CategoryBreads = () => {
   return (
     <div className="flex flex-col py-14 px-34 gap-8">
       <p className="text-2xl font-medium text-grey700">
-        BAKERY & BR<span className="border-b-2 border-green-500">EADS</span>
+        DAIRY PROD<span className="border-b-2 border-green-500">UCTS</span>
       </p>
       <ul className="flex gap-10 items-center flex-wrap">
         {data?.products
-          .filter((product) => product.category === "Bakery")
+          .filter((product) => product.category === "Dairy")
           .map((item) => (
+            <Link key={item._id} href={`/allProducts/${item.category}/${item._id}`}>
             <li
-              key={item._id}
+             
               className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg"
             >
               <div className="px-5 py-2">
@@ -59,10 +61,11 @@ const CategoryBreads = () => {
                 </div>
               </div>
             </li>
+            </Link>
           ))}
       </ul>
     </div>
   )
 }
 
-export default CategoryBreads
+export default CategoryDairyProducts

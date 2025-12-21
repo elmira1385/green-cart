@@ -1,6 +1,7 @@
 "use client"
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
+import Link from "next/link";
 export type TProducts={
 category:string,
 createdAt:string,
@@ -32,7 +33,8 @@ const BestSellers = () => {
       <p className="text-3xl font-medium text-grey700">Best Sellers</p>
       <ul className="flex justify-between items-center">
         {data?.products.slice(0,5).map((item)=>(
-        <li key={item._id} className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg">
+          <Link key={item._id} href={`/allProducts/${item.category}/${item._id}`}>
+        <li className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg">
           <div className="px-5 py-2">
             <img className="max-w-36 group-hover:scale-105" src={item.image[0]} alt="" />
           </div>
@@ -67,6 +69,7 @@ const BestSellers = () => {
             </div>
           </div>
         </li>
+        </Link>
         ))}
         
       </ul>
