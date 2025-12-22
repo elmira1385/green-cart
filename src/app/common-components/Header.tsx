@@ -6,8 +6,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import IFIsLogin from "./IFIsLogin";
+import { useAddToCart } from "@/store/useAddToBasket";
+
 
 const Header = () => {
+  const {products}=useAddToCart()
   const router = useRouter();
   const { search, setSearch } = useSearch();
   const {  setIsOpen } = useModule();
@@ -41,23 +44,27 @@ const Header = () => {
           />
           <img src="./search.svg" alt="" />
         </div>
-        <div className="relative cursor-pointer">
-          <img src="./basket.svg" alt="" />
-          <button className="absolute -top-2 -right-3  text-xs text-white bg-primary w-4.5 h-4.5 rounded-full">
-            0
+        <Link href="/cart">
+          <div className="relative cursor-pointer">
+            <img src="./basket.svg" alt="" />
+            <button className="absolute -top-2 -right-3  text-xs text-white bg-primary w-4.5 h-4.5 rounded-full">
+              {products.length}
+            </button>
+          </div>
+        </Link>
+
+        {IsLogin ? (
+          <IFIsLogin />
+        ) : (
+          <button
+            onClick={() => {
+              setIsOpen(true);
+            }}
+            className="cursor-pointer px-8 py-2 bg-primary transition bg-primary-dull text-white rounded-full"
+          >
+            Login
           </button>
-        </div>
-        
-        {
-          IsLogin?<IFIsLogin/>:<button
-          onClick={() => {
-            setIsOpen(true);
-          }}
-          className="cursor-pointer px-8 py-2 bg-primary transition bg-primary-dull text-white rounded-full"
-        >
-          Login
-        </button>
-        }
+        )}
       </div>
     </div>
   );

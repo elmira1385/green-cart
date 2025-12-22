@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
 import Link from "next/link";
+import { useAddToCart } from "@/store/useAddToBasket";
 export type TProducts={
 category:string,
 createdAt:string,
@@ -21,6 +22,7 @@ export type TProductsResponse={
 }
 
 const BestSellers = () => {
+   const{setProducts}=useAddToCart()
     const{data}=useQuery<TProductsResponse>({
         queryKey:["products"],
         queryFn:async()=>{
@@ -62,7 +64,10 @@ const BestSellers = () => {
               </div>
               <div className="flex items-center cursor-pointer justify-center gap-1 bg-[#e1fee2] border border-[#4fbf8b] px-4 py-1 rounded-sm">
                 <img src="./buy.svg" alt="" />
-              <button >
+              <button onClick={()=>{
+               setProducts(item)
+               
+              }}>
                 Add
               </button>
               </div>

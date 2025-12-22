@@ -66,6 +66,7 @@ const LoginAndSignUp = () => {
             <p className="text-[24px] font-medium text-primary">User <span className="text-gray-600">Login</span></p>
           </div>
           <form onSubmit={submitLogin(({email,password}) => {
+            console.log("hi")
             login({email:email,password:password})
           })} className="flex flex-col gap-4" 
            >
