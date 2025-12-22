@@ -13,7 +13,7 @@ const OutfitSans = Outfit({
 export const metadata: Metadata = {
   title: {
     default: "Green Card",
-    template: "%s | Green card",
+    template: "%s | Green Card",
   },
 };
 export default function RootLayout({
