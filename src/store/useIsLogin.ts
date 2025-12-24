@@ -8,4 +8,5 @@ type UseIsLogin = {
 export const useIsLogin = create<UseIsLogin>((set) => ({
   IsLogin: false,
   setIsLogin: (v) => set(() => ({ IsLogin:v })),
+  
 }))

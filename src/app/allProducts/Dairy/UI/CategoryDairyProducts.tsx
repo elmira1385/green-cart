@@ -1,13 +1,20 @@
-"use client"
+"use client";
 import { TProductsResponse } from "@/app/UI/BestSellers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
 import React from "react";
 import Link from "next/link";
+import { useAddToCart } from "@/store/useAddToBasket";
 
 const CategoryDairyProducts = () => {
-      const { data } = useQuery<TProductsResponse>({
-    queryKey: ["Dairy"],
+   const { setProducts, products, clearOne } = useAddToCart();
+
+  const getCount = (id: string) => {
+    return products.filter((p) => p._id === id).length;
+  };
+
+  const { data } = useQuery<TProductsResponse>({
+    queryKey: ["products"],
     queryFn: async () => {
       const { data } = await axios.get("/api/product/list");
       return data;
@@ -21,51 +28,78 @@ const CategoryDairyProducts = () => {
       <ul className="flex gap-10 items-center flex-wrap">
         {data?.products
           .filter((product) => product.category === "Dairy")
-          .map((item) => (
-            <Link key={item._id} href={`/allProducts/${item.category}/${item._id}`}>
+          .map((item) => {
+            const count=getCount(item._id)
+            return (
             <li
-             
+              key={item._id}
               className="flex flex-col group gap-2 p-4 border border-gray-300 rounded-lg"
             >
-              <div className="px-5 py-2">
-                <img
-                  className="max-w-36 group-hover:scale-105"
-                  src={item.image[0]}
-                  alt=""
-                />
-              </div>
+              <Link href={`/allProducts/${item.category}/${item._id}`}>
+                <div className="px-5 py-2">
+                  <img
+                    className="max-w-36 group-hover:scale-105"
+                    src={item.image[0]}
+                    alt={item.name}
+                  />
+                </div>
+              </Link>
               <div className="flex flex-col ">
                 <p className="text-gray-500/60 text-sm">{item.category}</p>
                 <p className="text-grey700 font-medium text-lg ">{item.name}</p>
                 <div className="flex items-center gap-1">
-                  <img className="w-3.5" src="../starpour.svg" alt="" />
-                  <img className="w-3.5" src="../starpour.svg" alt="" />
-                  <img className="w-3.5" src="../starpour.svg" alt="" />
-                  <img className="w-3.5" src="../starpour.svg" alt="" />
-                  <img className="w-3.5" src="../stargray.svg" alt="" />
+                  <img className="w-3.5" src="/starpour.svg" alt="" />
+
+                  <img className="w-3.5" src="/starpour.svg" alt="" />
+
+                  <img className="w-3.5" src="/starpour.svg" alt="" />
+
+                  <img className="w-3.5" src="/starpour.svg" alt="" />
+
+                  <img className="w-3.5" src="/stargray.svg" alt="" />
+
                   <p className="text-sm text-gray-500/60">(4)</p>
                 </div>
                 <div className="flex justify-between pt-4">
                   <div className="flex gap-1 items-center">
                     <p className="text-primary font-bold text-xl">
-                      $<span>{item.price}</span>
+                      ${item.price}
                     </p>
                     <p className="text-sm self-end text-gray-500/60 ">
-                      $<span className="line-through">{item.offerPrice}</span>
+                      <span className="line-through">${item.offerPrice}</span>
                     </p>
                   </div>
-                  <div className="flex items-center cursor-pointer justify-center gap-1 bg-[#e1fee2] border border-[#4fbf8b] px-4 py-1 rounded-sm">
-                    <img src="./buy.svg" alt="" />
-                    <button>Add</button>
-                  </div>
+                  {count === 0 ? (
+                    <div className="flex items-center cursor-pointer justify-center gap-1 bg-[#e1fee2] border border-[#4fbf8b] px-4 py-1 rounded-sm">
+                      <img src="/buy.svg" alt="" />
+
+                      <button onClick={() => setProducts(item)}>Add</button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center cursor-pointer justify-center gap-2 bg-[#e1fee2] border border-[#4fbf8b] px-4 py-1 rounded-sm">
+                      <p
+                        onClick={() => {
+                          clearOne(item._id);
+                        }}
+                      >-</p>
+                      <p>{count}</p>
+                      <p
+                        onClick={() => {
+                          setProducts(item);
+                        }}
+                      >
+                        +
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </li>
-            </Link>
-          ))}
+          );
+          })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default CategoryDairyProducts
+export default CategoryDairyProducts;

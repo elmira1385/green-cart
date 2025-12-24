@@ -17,6 +17,7 @@ const AuthFrist = () => {
   useEffect(()=>{
  if(data?.success===true){
   setIsLogin(true)
+  
  }
   },[isSuccess])
   return <div></div>;
