@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 const Basket = () => {
   const { products, clearAll,setQty,clearOne } = useAddToCart();
   const route=useRouter()
+   const totalProducts=products.reduce((sum,item)=>sum+item.qty,0)
    const totalPrice=products.reduce((sum,item)=>sum+item.price*item.qty,0)
    const tax2=totalPrice*0.02
    const totalAmount=totalPrice+tax2
@@ -33,7 +34,7 @@ const Basket = () => {
         <div className="flex gap-2">
           <p className="text-3xl font-medium ">Shopping Cart</p>
           <p className="text-sm text-primary font-semibold self-end">
-            {products.length}
+            {totalProducts}
             <span> Items</span>
           </p>
         </div>
