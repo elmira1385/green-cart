@@ -11,10 +11,6 @@ const Products = () => {
   const { search } = useSearch();
     const { setProducts, products, clearOne } = useAddToCart();
 
-  const getCount = (id: string) => {
-    return products.filter((p) => p._id === id).length;
-  };
-
   const { data } = useQuery<TProductsResponse>({
     queryKey: ["products"],
     queryFn: async () => {
@@ -31,7 +27,8 @@ const Products = () => {
         {data?.products
           .filter((product) =>
             product.name.toLocaleLowerCase().includes(search)).map((item) => {
-            const count=getCount(item._id)
+            const inCart = products.find((p)=>p._id===item._id)
+          const qty=inCart?.qty||0
              return (
             <li
               key={item._id}
@@ -71,7 +68,7 @@ const Products = () => {
                       <span className="line-through">${item.offerPrice}</span>
                     </p>
                   </div>
-                  {count === 0 ? (
+                  {qty === 0 ? (
                     <div className="flex items-center cursor-pointer justify-center gap-1 bg-[#e1fee2] border border-[#4fbf8b] px-4 py-1 rounded-sm">
                       <img src="./buy.svg" alt="" />
 
@@ -84,7 +81,7 @@ const Products = () => {
                           clearOne(item._id);
                         }}
                       >-</p>
-                      <p>{count}</p>
+                      <p>{qty}</p>
                       <p
                         onClick={() => {
                           setProducts(item);

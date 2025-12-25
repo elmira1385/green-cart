@@ -15,6 +15,7 @@ const Header = () => {
   const { search, setSearch } = useSearch();
   const {  setIsOpen } = useModule();
   const{IsLogin}=useIsLogin()
+  const totalProducts=products.reduce((sum,item)=>sum+item.qty,0)
   return (
     <div className="py-4 px-32 flex justify-between items-center border-b border-gray-300">
       <div>
@@ -48,7 +49,7 @@ const Header = () => {
           <div className="relative cursor-pointer">
             <img src="./basket.svg" alt="" />
             <button className="absolute -top-2 -right-3  text-xs text-white bg-primary w-4.5 h-4.5 rounded-full">
-              {products.length}
+              {totalProducts}
             </button>
           </div>
         </Link>

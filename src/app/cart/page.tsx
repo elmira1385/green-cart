@@ -3,7 +3,7 @@ import Basket from './UI/Basket'
 
 const Cart = () => {
   return (
-    <div><Basket/></div>
+    <Basket/>
   )
 }
 

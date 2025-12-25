@@ -25,9 +25,7 @@ export type TProductsResponse = {
 const BestSellers = () => {
   const { setProducts, products, clearOne } = useAddToCart();
 
-  const getCount = (id: string) => {
-    return products.filter((p) => p._id === id).length;
-  };
+  
 
   const { data } = useQuery<TProductsResponse>({
     queryKey: ["home"],
@@ -42,7 +40,8 @@ const BestSellers = () => {
       <p className="text-3xl font-medium text-grey700">Best Sellers</p>
       <ul className="flex justify-between items-center">
         {data?.products.slice(0, 5).map((item: TProducts) => {
-          const count = getCount(item._id);
+          const inCart = products.find((p)=>p._id===item._id)
+          const qty=inCart?.qty||0
 
           return (
             <li
@@ -83,7 +82,7 @@ const BestSellers = () => {
                       <span className="line-through">${item.offerPrice}</span>
                     </p>
                   </div>
-                  {count === 0 ? (
+                  {qty === 0 ? (
                     <div className="flex items-center cursor-pointer justify-center gap-1 bg-[#e1fee2] border border-[#4fbf8b] px-4 py-1 rounded-sm">
                       <img src="./buy.svg" alt="" />
 
@@ -95,8 +94,10 @@ const BestSellers = () => {
                         onClick={() => {
                           clearOne(item._id);
                         }}
-                      >-</p>
-                      <p>{count}</p>
+                      >
+                        -
+                      </p>
+                      <p>{qty}</p>
                       <p
                         onClick={() => {
                           setProducts(item);

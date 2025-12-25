@@ -9,8 +9,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const Basket = () => {
-  const { products, clearAll } = useAddToCart();
+  const { products, clearAll,setQty,clearOne } = useAddToCart();
   const route=useRouter()
+   const totalPrice=products.reduce((sum,item)=>sum+item.price*item.qty,0)
+   const tax2=totalPrice*0.02
+   const totalAmount=totalPrice+tax2
   const { data, isSuccess: loginSuccess } = useQuery<TProductsResponse>({
     queryKey: ["fir"],
     queryFn: async () => {
@@ -25,7 +28,7 @@ const Basket = () => {
   }, [loginSuccess]);
   console.log(products);
   return (
-    <div className="flex px-30 py-14">
+    <div className="flex px-30 py-14 justify-between">
       <div className="flex flex-col flex-1 max-w-4xl gap-4 ">
         <div className="flex gap-2">
           <p className="text-3xl font-medium ">Shopping Cart</p>
@@ -57,7 +60,7 @@ const Basket = () => {
                     </p>
                     <div className="flex items-center font-normal text-gray-500/70">
                       <p>Qty:</p>
-                      <select className="outline-none">
+                      <select value={newProduct.qty} onChange={(e)=>setQty(newProduct._id,Number(e.target.value))} className="outline-none">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -73,10 +76,12 @@ const Basket = () => {
                 </div>
                 <div className="text-center">
                   <p>
-                    $ <span>{newProduct.price}</span>
+                    $ <span>{newProduct.price*(newProduct.qty||1)}</span>
                   </p>
                 </div>
-                <div className="flex justify-center items-center">
+                <div onClick={()=>{
+                  clearOne(newProduct._id)
+                }} className="flex justify-center items-center">
                   <Image src="/Xsvg.svg" alt="minus" width={24} height={24} />
                 </div>
               </div>
@@ -117,7 +122,7 @@ const Basket = () => {
           <div className="flex justify-between text-gray-500">
             <p>Price</p>
             <p>
-              $<span>0</span>
+              $<span>{totalPrice}</span>
             </p>
           </div>
           <div className="flex justify-between text-gray-500">
@@ -127,13 +132,13 @@ const Basket = () => {
           <div className="flex justify-between text-gray-500">
             <p>Tax (2%)</p>
             <p>
-              $<span>0</span>
+              $<span>{tax2}</span>
             </p>
           </div>
           <div className="flex justify-between text-lg text-gray-600">
             <p>Total Amount:</p>
             <p>
-              $<span>0</span>
+              $<span>{totalAmount}</span>
             </p>
           </div>
         </div>
