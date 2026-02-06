@@ -1,6 +1,5 @@
 
-import { TProducts, TProductsResponse } from "@/app/UI/BestSellers";
-import { profile } from "console";
+import { TProducts } from "@/app/UI/BestSellers";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

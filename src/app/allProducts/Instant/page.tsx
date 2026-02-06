@@ -1,5 +1,4 @@
-import React from "react";
-import CategoryFruits from "../Fruits/UI/CategoryFruits";
+
 import CategoryInstantFood from "./UI/CategoryInstantFood";
 
 const InstantFood = () => {

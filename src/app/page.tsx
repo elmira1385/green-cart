@@ -1,6 +1,4 @@
 import Banner from "@/app/UI/Banner";
-
-import Image from "next/image";
 import Categories from "./UI/Categories";
 import BestSellers from "./UI/BestSellers";
 import BannerFast from "./UI/BannerFast";

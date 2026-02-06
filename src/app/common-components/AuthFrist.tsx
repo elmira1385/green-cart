@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { TProductsResponse } from "../UI/BestSellers";
 import axios from "@/api/axios";
 import { useIsLogin } from "@/store/useIsLogin";

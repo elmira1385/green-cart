@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
 import Link from "next/link";
 import { useAddToCart } from "@/store/useAddToBasket";
-import { useState } from "react";
 export type TProducts = {
   category: string;
   createdAt: string;

@@ -3,11 +3,9 @@
 import { useModule } from '@/store/useModule'
 import { useMutation } from '@tanstack/react-query'
 import axios from '@/api/axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useIsLogin } from '@/store/useIsLogin'
-import { parseSetCookie } from 'next/dist/compiled/@edge-runtime/cookies'
-import AuthFrist from './AuthFrist'
 interface userTypeRegister{
   name:string,
    email:string,

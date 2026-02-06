@@ -1,4 +1,4 @@
-import React from 'react'
+
 import CategoryBreads from './UI/CategoryBreads'
 
 const BakeryAndBreads = () => {

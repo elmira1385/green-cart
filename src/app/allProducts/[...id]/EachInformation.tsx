@@ -2,7 +2,7 @@
 import { TProductsResponse } from "@/app/UI/BestSellers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAddToCart } from "@/store/useAddToBasket";

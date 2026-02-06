@@ -1,4 +1,4 @@
-import React from 'react'
+
 import CategoryGrains from './UI/CategoryGrains'
 
 const GrainsCereals = () => {

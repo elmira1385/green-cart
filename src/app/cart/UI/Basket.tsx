@@ -3,8 +3,8 @@
 import { useAddToCart } from "@/store/useAddToBasket";
 import { useQuery } from "@tanstack/react-query";
 import axios from "@/api/axios";
-import React, { useEffect } from "react";
-import { TProducts, TProductsResponse } from "@/app/UI/BestSellers";
+import { useEffect } from "react";
+import { TProductsResponse } from "@/app/UI/BestSellers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 

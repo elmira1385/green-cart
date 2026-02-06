@@ -4,7 +4,6 @@ import { useModule } from "@/store/useModule";
 import { useSearch } from "@/store/useSearch";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 import IFIsLogin from "./IFIsLogin";
 import { useAddToCart } from "@/store/useAddToBasket";
 

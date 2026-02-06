@@ -1,4 +1,4 @@
-import React from 'react'
+
 import CategoryDrinks from './UI/CategoryDrinks'
 
 const ColdDrinks = () => {
